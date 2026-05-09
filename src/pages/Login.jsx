@@ -13,9 +13,9 @@ function Login() {
     });
   };
 
-  const loginUser = async () => {
+  const handleLogin = async () => {
     try {
-      const response = await fetch("https://example-api.com/login", {
+      const response = await fetch("https://example-api.com/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -51,7 +51,7 @@ function Login() {
         onChange={handleChange}
       />
 
-      <button onClick={loginUser}>Login</button>
+      <button onClick={handleLogin}>Login</button>
     </div>
   );
 }
