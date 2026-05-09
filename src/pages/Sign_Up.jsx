@@ -1,26 +1,86 @@
-import React from "react";
+import React, { useState } from "react";
 
 function Sign_Up() {
+  const [formData, setFormData] = useState({
+    role: "",
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(
+        "https://example-api.com/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      const data = await response.json();
+      console.log(data);
+      alert("User Registered Successfully");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
-      <h2>Sign Up Form</h2>
+      <h2>Sign Up</h2>
 
-      <input type="text" placeholder="Role" />
-      <br /><br />
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="role"
+          placeholder="Role"
+          onChange={handleChange}
+        />
 
-      <input type="text" placeholder="Name" />
-      <br /><br />
+        <input
+          type="text"
+          name="name"
+          placeholder="Name"
+          onChange={handleChange}
+        />
 
-      <input type="email" placeholder="Email" />
-      <br /><br />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          onChange={handleChange}
+        />
 
-      <input type="text" placeholder="Phone Number" />
-      <br /><br />
+        <input
+          type="text"
+          name="phone"
+          placeholder="Phone"
+          onChange={handleChange}
+        />
 
-      <input type="password" placeholder="Password" />
-      <br /><br />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          onChange={handleChange}
+        />
 
-      <button>Register</button>
+        <button type="submit">Register</button>
+      </form>
     </div>
   );
 }
